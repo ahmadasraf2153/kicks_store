@@ -1,8 +1,9 @@
 
 import 'package:flutter/material.dart';
+import '../../../../data/models/product_model.dart';
 
 class ProductCard extends StatelessWidget {
-  final Map<String, dynamic> product;
+  final ProductModel product;
   final bool isFavorite;
   final VoidCallback onToggleFavorite;
   final VoidCallback onAddToCart;
@@ -37,7 +38,7 @@ class ProductCard extends StatelessWidget {
                       top: Radius.circular(16),
                     ),
                     child: Image.network(
-                      product['imageUrl'],
+                      product.imageUrl,
                       width: double.infinity,
                       fit: BoxFit.cover,
                       errorBuilder: (_, __, ___) =>
@@ -50,7 +51,9 @@ class ProductCard extends StatelessWidget {
                     child: IconButton(
                       onPressed: onToggleFavorite,
                       icon: Icon(
-                        isFavorite ? Icons.favorite : Icons.favorite_border,
+                        isFavorite
+                            ? Icons.favorite
+                            : Icons.favorite_border,
                         color: isFavorite ? Colors.red : Colors.black,
                       ),
                       style: IconButton.styleFrom(
@@ -67,14 +70,14 @@ class ProductCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    product['name'],
+                    product.name,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    'Rp${product['price']}',
+                    product.formattedPrice,
                     style: const TextStyle(
                       color: Color(0xFF1D4ED8),
                       fontWeight: FontWeight.bold,

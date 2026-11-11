@@ -4,8 +4,15 @@ import 'package:get/get.dart';
 
 import 'app/modules/home/bindings/home_binding.dart';
 import 'app/modules/home/views/home_view.dart';
-import 'app/modules/detail/controllers/detail_controller.dart';
+
+import 'app/modules/detail/bindings/detail_binding.dart';
 import 'app/modules/detail/views/detail_view.dart';
+
+import 'app/modules/cart/bindings/cart_binding.dart';
+import 'app/modules/cart/views/cart_view.dart';
+
+import 'app/modules/wishlist/bindings/wishlist_binding.dart';
+import 'app/modules/wishlist/views/wishlist_view.dart';
 
 void main() {
   runApp(const KicksStoreApp());
@@ -29,9 +36,17 @@ class KicksStoreApp extends StatelessWidget {
         GetPage(
           name: '/detail',
           page: () => const DetailView(),
-          binding: BindingsBuilder(() {
-            Get.lazyPut<DetailController>(() => DetailController());
-          }),
+          binding: DetailBinding(),
+        ),
+        GetPage(
+          name: '/cart',
+          page: () => const CartView(),
+          binding: CartBinding(),
+        ),
+        GetPage(
+          name: '/wishlist',
+          page: () => const WishlistView(),
+          binding: WishlistBinding(),
         ),
       ],
     );

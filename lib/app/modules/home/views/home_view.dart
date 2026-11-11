@@ -20,21 +20,37 @@ class HomeView extends GetView<HomeController> {
           ),
         ),
         backgroundColor: const Color(0xFF172554),
+       
         actions: [
+          IconButton(
+            onPressed: () {
+              Get.toNamed('/wishlist');
+            },
+            icon: const Icon(
+              Icons.favorite_border,
+              color: Colors.white,
+            ),
+          ),
           Obx(() => Padding(
                 padding: const EdgeInsets.only(right: 20),
                 child: Center(
                   child: Badge(
-                    label: Text('${controller.cartCount.value}'),
-                    isLabelVisible: controller.cartCount.value > 0,
-                    child: const Icon(
-                      Icons.shopping_cart_outlined,
-                      color: Colors.white,
+                    label: Text('${controller.cartCount}'),
+                    isLabelVisible: controller.cartCount > 0,
+                    child: IconButton(
+                      onPressed: () {
+                        Get.toNamed('/cart');
+                      },
+                      icon: const Icon(
+                        Icons.shopping_cart_outlined,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
               )),
         ],
+
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -107,13 +123,12 @@ class HomeView extends GetView<HomeController> {
                   ),
                   itemBuilder: (context, index) {
                     final product = controller.filteredProducts[index];
-                    final id = product['id'] as String;
 
                     return ProductCard(
                       product: product,
-                      isFavorite: controller.isFavorite(id),
+                      isFavorite: controller.isFavorite(product.id),
                       onToggleFavorite: () =>
-                          controller.toggleFavorite(id),
+                          controller.toggleFavorite(product.id),
                       onAddToCart: () => controller.addToCart(product),
                       onTap: () => controller.openDetail(product),
                     );
